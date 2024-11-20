@@ -293,7 +293,7 @@ const toggleCurrencyDropdown = () => {
 .dropdown-mob {
   display: none;
 }
-@media (max-width: 1440px) {
+@media (min-width: 769px) {
   .mob-only{
     display: none;
   }
