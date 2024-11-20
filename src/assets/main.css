@@ -12,16 +12,12 @@ body {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
+  box-sizing: border-box;
   @media (min-width: 1440px) {
     max-width: 1140px;
+    padding: 12px;
   }
-}
-.container-news {
-  width: 100%;
-  margin-right: auto;
-  margin-left: auto;
-
-  @media (min-width: 1440px) {
-    max-width: 600px;
+  @media (min-width: 900px) {
+    padding: 12px;
   }
 }

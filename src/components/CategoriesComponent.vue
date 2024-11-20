@@ -16,7 +16,6 @@ const categories = [
 const currentPage = ref(0);
 const itemsPerPage = 4;
 
-
 const totalPages = computed(() => Math.ceil(categories.length / itemsPerPage));
 
 const visibleCategories = computed(() =>
@@ -29,13 +28,20 @@ const nextPage = () => {
   }
 };
 
-
+const prevPage = () => {
+  if (currentPage.value > 0) {
+    currentPage.value--;
+  }
+};
 </script>
 
 <template>
   <div class="categories container">
     <h1 class="categories-title">Категории</h1>
     <div class="categories-slider">
+      <button class="slider-button left" @click="prevPage">
+        <img src="@/assets/img/sliderbtn.png" alt="">
+      </button>
       <div class="categories-list">
         <CardComponent
             v-for="(category, index) in visibleCategories"
@@ -43,7 +49,7 @@ const nextPage = () => {
             :title="category.title"
         />
       </div>
-      <button class="slider-button" @click="nextPage">
+      <button class="slider-button right" @click="nextPage">
         <img src="@/assets/img/sliderbtn.png" alt="">
       </button>
     </div>
@@ -79,13 +85,27 @@ const nextPage = () => {
   border: none;
   background: none;
   cursor: pointer;
-  right: 20px;
+  z-index: 1;
+}
 
+.slider-button.left {
+  left: 20px;
+}
+
+.slider-button.right {
+  right: 20px;
 }
 
 .slider-button:hover {
   background: #d2a689;
+  transition: 0.3s;
 }
+
+.slider-button img {
+  height: 30px;
+  width: 30px;
+}
+
 @media (max-width: 768px) {
   .categories-title {
     padding: 0 20px;
@@ -97,29 +117,24 @@ const nextPage = () => {
     gap: 0;
     padding: 5px;
   }
-  .slider-button {
-    right: 20px;
+  .slider-button.left,
+  .slider-button.right {
     top: 50%;
     transform: translateY(-50%);
-  }
-  .slider-button img {
-    height: 30px;
-    width: 30px;
   }
 }
 
 @media (max-width: 1024px) and (min-width: 769px) {
-  .slider-button {
-    right: 10px;
+  .slider-button.left,
+  .slider-button.right {
     top: 50%;
     transform: translateY(-50%);
   }
 }
 
-
 @media (min-width: 1025px) {
-  .slider-button {
-    right: 10px;
+  .slider-button.left,
+  .slider-button.right {
     top: 50%;
     transform: translateY(-50%);
   }

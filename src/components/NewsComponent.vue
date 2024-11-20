@@ -1,5 +1,5 @@
 <template>
-  <div class="container-news news">
+  <div class=" news">
     <h1 class="news-title">Узнайте  первым о новинках</h1>
     <input class="news-input" type="text" placeholder="Ваш e-mail*">
     <button class="news-btn">
@@ -16,6 +16,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 .news-title {
   font-size: 36px;
@@ -29,6 +30,7 @@
   text-align: center;
   font-size: 16px;
   border: 1px solid #252525;
+  width: 600px;
 }
 .news-input::placeholder {
   color: #25252580;
@@ -43,9 +45,11 @@
   border: none;
   font-weight: 300;
   font-size: 16px;
+  width: 633px;
 }
-.news-btn:hover {
-  background: #e69b5a;
+.news-btn:active {
+  background: #CCA88A;
+  transition: 1ms;
 }
 .news-text {
   margin-top: 20px;

@@ -1,9 +1,15 @@
 <script setup>
 import { ref } from 'vue';
 
+
+const isBurgerMenuOpen = ref(false);
+
+const toggleBurgerMenu = () => {
+  isBurgerMenuOpen.value = !isBurgerMenuOpen.value;
+};
+
 const isLanguageOpen = ref(false);
 const isCurrencyOpen = ref(false);
-const isBurgerMenuOpen = ref(false);
 
 const toggleLanguageDropdown = () => {
   isLanguageOpen.value = !isLanguageOpen.value;
@@ -12,14 +18,9 @@ const toggleLanguageDropdown = () => {
 const toggleCurrencyDropdown = () => {
   isCurrencyOpen.value = !isCurrencyOpen.value;
 };
-
-const toggleBurgerMenu = () => {
-  isBurgerMenuOpen.value = !isBurgerMenuOpen.value;
-};
 </script>
-
 <template>
-  <div class="qwe ">
+  <div class="qwe">
     <header class="header container">
       <div class="burger-menu" @click="toggleBurgerMenu">
         <span></span>
@@ -36,17 +37,17 @@ const toggleBurgerMenu = () => {
           <li>Русский</li>
         </ul>
       </div>
-      <nav :class="{ open: isBurgerMenuOpen }">
+      <nav>
         <ul class="nav-list">
           <li><a href="new-view">NEW</a></li>
           <li><a href="catalog">КАТАЛОГ</a></li>
           <li><a href="about-us">О НАС</a></li>
+
         </ul>
       </nav>
       <div class="logo">
-         <img src="@/assets/img/logo.png" alt="">
+        <img src="@/assets/img/logo.png" alt="">
       </div>
-
       <div class="dropdowns">
         <div class="dropdown">
           <button @click="toggleLanguageDropdown">
@@ -54,8 +55,9 @@ const toggleBurgerMenu = () => {
             <img src="@/assets/icons/arrow-down.svg" alt="">
           </button>
           <ul v-if="isLanguageOpen" class="dropdown-menu">
-            <li>English</li>
-            <li>Русский</li>
+            <li>EN</li>
+            <li>RU</li>
+            <li>UA</li>
           </ul>
         </div>
         <div class="dropdown">
@@ -70,7 +72,6 @@ const toggleBurgerMenu = () => {
           </ul>
         </div>
       </div>
-
       <div class="icons">
         <a href="">
           <img src="@/assets/icons/search.svg" alt="">
@@ -86,6 +87,30 @@ const toggleBurgerMenu = () => {
         </a>
       </div>
     </header>
+    <div v-if="isBurgerMenuOpen" class="burger-menu-overlay">
+     <div class="burger-menu-inner">
+       <input placeholder="Введите ваш запрос">
+     </div>
+      <div class="burger-menu__nav">
+        <ul class="burger-menu__list">
+          <li class="mob-only">Личный кабинет</li>
+          <li class="mob-only">NEW</li>
+          <li class="mob-only">КАТАЛОГ</li>
+          <li class="mob-only">О НАС</li>
+          <li class="mob-only">УСЛОВИЯ ВОЗВРАТА</li>
+          <li class="mob-only">КОНТАКТЫ</li>
+          <li class="desktop-only"><a href="payment">ОПЛАТА И ДОСТАВКА</a></li>
+          <li class="desktop-only"><a href="return-conditions">УСЛОВИЯ ВОЗВРАТА</a></li>
+          <li class="desktop-only"><a href="contacts">КОНТАКТЫ</a></li>
+        </ul>
+      </div>
+      <div class="burger-menu__contact mob-only">
+        <img src="@/assets/icons/inst.svg" alt="">
+        <img src="@/assets/icons/tg.svg" alt="">
+        <a href="tel:+380730963644">+38(073) 096 36 44</a>
+        <a href="mailto:info@yanki.com">info@yanki.com</a>
+      </div>
+    </div>
     <div class="collection">
       <div>
         <h1>Новая коллекция</h1>
@@ -114,7 +139,7 @@ const toggleBurgerMenu = () => {
   justify-content: space-between;
   align-items: center;
   padding-top: 24px;
-  height: 80px;
+  position: relative;
 }
 
 .collection {
@@ -132,13 +157,15 @@ const toggleBurgerMenu = () => {
   font-weight: 200;
 
 }
+
 .collection-btn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.collection-btn:hover {
-  background-color: lightgrey;
+
+.collection-btn img:hover {
+  color: #CCA88A;
 }
 .collection .line {
   height: 2px;
@@ -175,6 +202,23 @@ const toggleBurgerMenu = () => {
 .burger-menu span:nth-child(3) {
   width: 18px;
 }
+.burger-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.burger-menu-overlay {
+  position: absolute;
+  top: 92px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1;
+}
+
 
 .nav-list {
   display: flex;
@@ -190,7 +234,8 @@ const toggleBurgerMenu = () => {
   font-weight: 300;
 }
 .nav-list a:hover {
-  background-color: lightgrey;
+  color: #CCA88A;
+  transition: 0.3s;
 }
 .dropdowns {
   display: flex;
@@ -228,6 +273,7 @@ const toggleBurgerMenu = () => {
 .dropdown-menu li {
   padding: 5px;
   cursor: pointer;
+  border-bottom: 1px solid #E0BEA2;
 }
 .dropdown-menu li:hover {
   background-color: #f0f0f0;
@@ -236,14 +282,29 @@ const toggleBurgerMenu = () => {
 .icons {
   display: flex;
   gap: 30px;
+  color: white;
 }
-.icons a:hover {
-  background-color: lightgrey;
+.icons img:hover {
+  color: #CCA88A;
+}
+.icons img {
+  color:  #CCA88A;
 }
 .dropdown-mob {
   display: none;
 }
+@media (max-width: 1440px) {
+  .mob-only{
+    display: none;
+  }
+}
 @media (max-width: 769px) {
+  .mob-only{
+    display: flex;
+  }
+  .desktop-only{
+    display: none;
+  }
   .dropdown:nth-child(2) {
     display: none;
   }
